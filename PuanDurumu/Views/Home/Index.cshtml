@@ -1,0 +1,61 @@
+﻿@using PuanDurumu.Models.ViewModels
+@model IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Takım</th>
+            <th scope="col">O</th>
+            <th scope="col">G</th>
+            <th scope="col">B</th>
+            <th scope="col">M</th>
+            <th scope="col">A</th>
+            <th scope="col">Y</th>
+            <th scope="col">AV</th>
+            <th scope="col">P</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int sayac = 0;}
+        @foreach (var item in Model.ListTakimDurumu)
+        {
+            sayac++;
+
+            <tr>
+                <th scope="row">@sayac <button class="btn btn-info btn-sm fas fa-info-circle" value="@item.Takim_Id" data-toggle="collapse" data-target="#detay" style="margin-left:10px;" id="takimDetay"></button></th>
+                <td>@item.TakimAdi</td>
+                <td>@(item.Galibiyet + item.Beraberlik + item.Maglubiyet)</td>
+                <td>@item.Galibiyet</td>
+                <td>@item.Beraberlik</td>
+                <td>@item.Maglubiyet</td>
+                <td>@item.AtilanGol</td>
+                <td>@item.YenilenGol</td>
+                <td>@(item.AtilanGol - item.YenilenGol)</td>
+                <td>@item.Puan </td>
+            </tr>
+
+
+        }
+    </tbody>
+
+</table>
+
+<div id="detay" class="collapse">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <tbody id="takimTable">
+                    <tr>
+                        <td>21.03.2007</td>
+                        <td>Fenerbahçe 2 - 3 Galatasaray</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

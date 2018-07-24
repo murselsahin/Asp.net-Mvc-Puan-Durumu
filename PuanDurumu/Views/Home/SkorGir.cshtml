@@ -1,0 +1,95 @@
+﻿@using PuanDurumu.Models.ViewModels
+@model SkorGirViewModel
+@{
+    ViewBag.Title = "SkorGir";
+}
+@using (Html.BeginForm("SkorGir", "Home", FormMethod.Post, new { @class = "needs-validation", @id = "skorGirForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="Ev Sahibi">Ev Sahibi</label>
+            @Html.DropDownListFor(x => x.EvSahibi_Id, Model.TakimlarData, "Takım Seçiniz...", new { @class = "form-control dropdown", required = "required" })
+        </div>
+        <div class="col-md-2 mb-3">
+            <label for="validationTooltip02">Skor</label>
+            @Html.EditorFor(x => x.Maclar.EvSkor, new { htmlAttributes = new { @class = "form-control", @min = "0", @max = "30", required = "required" } })
+
+        </div>
+
+    </div>
+    <hr />
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="Ev Sahibi">Deplasman</label>
+            @Html.DropDownListFor(x => x.Deplasman_Id, Enumerable.Empty<SelectListItem>(), "Takim Seçiniz...", new { @class = "form-control dropdown", required = "required" })
+        </div>
+        <div class="col-md-2 mb-">
+            <label for="validationTooltip02">Skor</label>
+            @Html.EditorFor(x => x.Maclar.DeplasmanSkor, new { htmlAttributes = new { @class = "form-control" ,   required = "required", @min = "0", @max = "30" }, })
+
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" id="btnSkor">Skoru Gir</button>
+    <br />
+    if (ViewBag.Hata != null && ViewBag.Hata)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="alert alert-danger" role="alert">
+                    A simple danger alert—check it out!
+                </div>
+            </div>
+        </div>
+    }
+    if (ViewBag.Sonuc != null)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @if (ViewBag.Sonuc)
+                {
+                    <div class="alert alert-success" role="alert">
+                        Başarıyla Sonuç Girildi.
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger" role="alert">
+                        Bir Hata Oluştu !
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
+<hr />
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm("TakimEkle", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Takım Adı</label>
+                <div class="col-sm-6">
+                    @Html.EditorFor(x => x.Takim.Adi, new { htmlAttributes = new { @class = "form-control", placeholder = "Takım Adı", required = "required", @min = 4, @max = 30 } })
+
+                </div>
+                <div class="col-sm-3">
+                    <input type="submit" class="form-control btn btn-primary" value="Ekle">
+                </div>
+            </div>
+
+
+        }
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    @Html.ActionLink("Puan Durumu", "Index", "Home", null, new { @class = "nav-link" })
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Skor Gir", "SkorGir", "Home", null, new { @class = "nav-link" })
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+    <br />
+    <br />
+    <div class="container">
+        @RenderBody()
+
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/Site.js"></script>
+    <script>
+
+        $("button").click(function () {
+            var takimId = $(this).val();
+
+
+
+            //$("#takimTable").html("<td>Abuzittin</td>");
+
+            $("#takimTable").empty();
+
+            $.ajax({
+                method: "GET",
+                url: '/Home/GetTakimDetay' + '/' + takimId
+            }).done(function (result) {
+                var eklenecek = "";
+                var table = $("#takimTable");
+                for (var i = 0; i < result.length; i++) {
+                    eklenecek += "<tr><td>" + result[i].Tarih + "</td><td>" + result[i].Sonuc + "</td></tr>";
+
+                    
+                    
+                }
+                
+                table.append(eklenecek);
+                })
+
+            $("#takimTable").empty();
+
+        });
+    </script>
+</body>
+</html>
